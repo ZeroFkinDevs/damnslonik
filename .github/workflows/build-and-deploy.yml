@@ -37,8 +37,10 @@ jobs:
       - name: Create Version Directory
         run: |
           # Создаем уникальное имя версии с датой и комментарием
-          VERSION_NAME="v$(date +%Y-%m-%d-%H-%M-%S)"
-          VERSION_NAME="${VERSION_NAME}-${GITHUB_SHA::7}"
+          VERSION_NAME="v$(date +%Y-%m-%d-%H-%M)"
+          # Берем первые 7 символов коммита
+          COMMIT_SHORT=$(echo "$GITHUB_SHA" | cut -c1-7)
+          VERSION_NAME="${VERSION_NAME}-${COMMIT_SHORT}"
 
           echo "VERSION_NAME=$VERSION_NAME" >> $GITHUB_ENV
           echo "Building version: $VERSION_NAME"

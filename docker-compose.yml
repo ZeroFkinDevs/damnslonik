@@ -5,7 +5,7 @@ services:
     build: .
     container_name: damnslonik-game
     ports:
-      - "80:80"
+      - "3001:80"
     volumes:
       - /home/games/damnslonik/builds:/home/games/damnslonik/builds
       - ./logs:/var/log/nginx
@@ -13,8 +13,8 @@ services:
     environment:
       - TZ=Europe/Moscow
     networks:
-      - godot-network
+      - shared-net
 
 networks:
-  godot-network:
-    driver: bridge
+  shared-net:
+    external: true
