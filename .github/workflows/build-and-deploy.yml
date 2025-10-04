@@ -40,7 +40,13 @@ jobs:
           VERSION_NAME="v$(date +%Y%m%d-%H%M%S)"
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             COMMENT="${{ github.event.inputs.version_comment }}"
-            VERSION_NAME="${VERSION_NAME}-${COMMENT//[^a-zA-Z0-9]/-}"
+            # Заменяем специальные символы на дефисы (включая кириллицу)
+            CLEAN_COMMENT=$(echo "$COMMENT" | sed 's/[^a-zA-Zа-яА-Я0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-\|-$//g')
+            # Ограничиваем длину комментария (максимум 30 символов)
+            if [ ${#CLEAN_COMMENT} -gt 30 ]; then
+              CLEAN_COMMENT="${CLEAN_COMMENT:0:30}"
+            fi
+            VERSION_NAME="${VERSION_NAME}-${CLEAN_COMMENT}"
           else
             VERSION_NAME="${VERSION_NAME}-${GITHUB_SHA::7}"
           fi
