@@ -38,18 +38,7 @@ jobs:
         run: |
           # Создаем уникальное имя версии с датой и комментарием
           VERSION_NAME="v$(date +%Y%m%d-%H%M%S)"
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            COMMENT="${{ github.event.inputs.version_comment }}"
-            # Заменяем специальные символы на дефисы (включая кириллицу)
-            CLEAN_COMMENT=$(echo "$COMMENT" | sed 's/[^a-zA-Zа-яА-Я0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-\|-$//g')
-            # Ограничиваем длину комментария (максимум 30 символов)
-            if [ ${#CLEAN_COMMENT} -gt 30 ]; then
-              CLEAN_COMMENT="${CLEAN_COMMENT:0:30}"
-            fi
-            VERSION_NAME="${VERSION_NAME}-${CLEAN_COMMENT}"
-          else
-            VERSION_NAME="${VERSION_NAME}-${GITHUB_SHA::7}"
-          fi
+          VERSION_NAME="${VERSION_NAME}-${GITHUB_SHA::7}"
 
           echo "VERSION_NAME=$VERSION_NAME" >> $GITHUB_ENV
           echo "Building version: $VERSION_NAME"
@@ -114,6 +103,3 @@ jobs:
             # Обновляем индекс версий
             cd /home/games/damnslonik/builds
             echo "${{ env.VERSION_NAME }}" >> versions.txt
-
-            # Перезапускаем nginx для обновления конфигурации
-            sudo systemctl reload nginx
