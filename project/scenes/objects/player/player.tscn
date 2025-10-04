@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://bdrtmjov0or0o"]
+
+[ext_resource type="Script" uid="uid://ceq0vht4ytgd5" path="res://scripts/entity/player/player.gd" id="1_0a575"]
+[ext_resource type="Texture2D" uid="uid://nedhr3pnawa7" path="res://resources/textures/characters/boss_platform.png" id="2_nkbs0"]
+[ext_resource type="Script" uid="uid://q4w3qckxe127" path="res://scripts/entity/player/player_use_region.gd" id="3_wim6f"]
+[ext_resource type="Script" uid="uid://bxe6r00wlltvf" path="res://scripts/ui/player/player_ui_container.gd" id="4_nkbs0"]
+[ext_resource type="FontFile" uid="uid://bb1uwgwqm4g8p" path="res://resources/AcPlus_IBM_BIOS.ttf" id="5_gmdvr"]
+[ext_resource type="Script" uid="uid://7dwtkql2x8ce" path="res://scripts/ui/player/usage_indicator.gd" id="5_wim6f"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_21p7k"]
+radius = 61.926575
+height = 385.32117
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uprbi"]
+size = Vector2(215.59619, 385.32117)
+
+[sub_resource type="LabelSettings" id="LabelSettings_thsex"]
+font = ExtResource("5_gmdvr")
+font_size = 25
+outline_size = 25
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
+scale = Vector2(0.436, 0.436)
+script = ExtResource("1_0a575")
+sprite = NodePath("BossPlatform")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_21p7k")
+
+[node name="BossPlatform" type="Sprite2D" parent="."]
+position = Vector2(2.2936401, -57.339355)
+texture = ExtResource("2_nkbs0")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(2.2935781, -105.50459)
+scale = Vector2(2.2935781, 2.2935781)
+zoom = Vector2(1.765, 1.765)
+position_smoothing_enabled = true
+
+[node name="UseRegion" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_wim6f")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="UseRegion"]
+shape = SubResource("RectangleShape2D_uprbi")
+
+[node name="UIContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("4_nkbs0")
+
+[node name="UsageIndicator" type="Control" parent="UIContainer" node_paths=PackedStringArray("use_region", "label")]
+anchors_preset = 0
+offset_right = 4.5871563
+script = ExtResource("5_wim6f")
+use_region = NodePath("../../UseRegion")
+label = NodePath("Label")
+
+[node name="Label" type="Label" parent="UIContainer/UsageIndicator"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -145.5
+offset_top = -24.082571
+offset_right = 145.5
+offset_bottom = 24.082571
+grow_horizontal = 2
+grow_vertical = 2
+text = "[E] Use Object"
+label_settings = SubResource("LabelSettings_thsex")
+horizontal_alignment = 1
+vertical_alignment = 1

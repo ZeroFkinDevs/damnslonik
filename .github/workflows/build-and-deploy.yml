@@ -1,0 +1,112 @@
+name: Build and Deploy Godot Web Version
+
+on:
+  # push:
+  #   branches: [main]
+  # pull_request:
+  #   branches: [main]
+  workflow_dispatch:
+    inputs:
+      version_comment:
+        description: "Version comment/description"
+        required: true
+        default: "Auto-generated build"
+
+env:
+  GODOT_VERSION: "4.3"
+  PROJECT_PATH: "project"
+
+jobs:
+  export-web:
+    name: Web Export
+    runs-on: ubuntu-24.04
+    container:
+      image: barichello/godot-ci:4.5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+
+      - name: Create Version Directory
+        run: |
+          # Создаем уникальное имя версии с датой и комментарием
+          VERSION_NAME="v$(date +%Y%m%d-%H%M%S)"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            COMMENT="${{ github.event.inputs.version_comment }}"
+            VERSION_NAME="${VERSION_NAME}-${COMMENT//[^a-zA-Z0-9]/-}"
+          else
+            VERSION_NAME="${VERSION_NAME}-${GITHUB_SHA::7}"
+          fi
+
+          echo "VERSION_NAME=$VERSION_NAME" >> $GITHUB_ENV
+          echo "Building version: $VERSION_NAME"
+
+      - name: Web Build
+        run: |
+          mkdir -v -p build/web/${{ env.VERSION_NAME }}
+          EXPORT_DIR="$(readlink -f build/web/${{ env.VERSION_NAME }})"
+          cd $PROJECT_PATH
+          godot --headless --verbose --export-release "Web" "$EXPORT_DIR/index.html"
+
+      - name: Create Version Metadata
+        run: |
+          # Создаем метаданные версии
+          cat > build/web/${{ env.VERSION_NAME }}/version.json << EOF
+          {
+            "version": "${{ env.VERSION_NAME }}",
+            "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "commit": "$GITHUB_SHA",
+            "comment": "${{ github.event.inputs.version_comment || 'Auto-generated build' }}",
+            "branch": "$GITHUB_REF_NAME"
+          }
+          EOF
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-build-${{ env.VERSION_NAME }}
+          path: build/web/${{ env.VERSION_NAME }}
+
+      - name: Install rsync
+        run: |
+          apt-get update && apt-get install -y rsync
+
+      - name: Deploy to server
+        if: github.ref == 'refs/heads/main'
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            # Создаем директорию для новой версии
+            mkdir -p /home/games/damnslonik/builds/${{ env.VERSION_NAME }}
+            echo "Ready to receive files for version ${{ env.VERSION_NAME }}"
+
+      - name: Copy files to server
+        if: github.ref == 'refs/heads/main'
+        run: |
+          # Используем rsync для копирования файлов
+          rsync -avz --delete build/web/${{ env.VERSION_NAME }}/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/games/damnslonik/builds/${{ env.VERSION_NAME }}/
+
+      - name: Update version index
+        if: github.ref == 'refs/heads/main'
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            # Обновляем индекс версий
+            cd /home/games/damnslonik/builds
+            echo "${{ env.VERSION_NAME }}" >> versions.txt
+
+            # Перезапускаем nginx для обновления конфигурации
+            sudo systemctl reload nginx

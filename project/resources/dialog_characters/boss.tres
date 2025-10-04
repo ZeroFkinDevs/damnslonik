@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="CharacterResource" load_steps=12 format=3 uid="uid://c5gguulbbdgxm"]
+
+[ext_resource type="Script" uid="uid://cyo1hpto3fobw" path="res://scripts/ui/dialog_system/character_frame_resource.gd" id="1_hutwl"]
+[ext_resource type="Script" uid="uid://bry24mmsdvrgq" path="res://scripts/ui/dialog_system/character_resource.gd" id="2_6xsg8"]
+[ext_resource type="Texture2D" uid="uid://bks0jf7slvn6a" path="res://resources/textures/characters/boss_idle_wind/кадр0000.png" id="2_x1n1s"]
+[ext_resource type="Texture2D" uid="uid://daido1hv8str" path="res://resources/textures/characters/boss_idle_wind/кадр0001.png" id="3_cmdv6"]
+[ext_resource type="Texture2D" uid="uid://cpl2ne2ty8jcg" path="res://resources/textures/characters/boss_idle_wind/кадр0002.png" id="4_pbf8l"]
+[ext_resource type="Texture2D" uid="uid://7elgary4x4tj" path="res://resources/textures/characters/boss_idle_wind/кадр0003.png" id="5_b2lbw"]
+[ext_resource type="Texture2D" uid="uid://c7ii4jnp64scq" path="res://resources/textures/characters/boss_idle_wind/кадр0004.png" id="6_cddeq"]
+[ext_resource type="Texture2D" uid="uid://c5lhwd3eb0ffo" path="res://resources/textures/characters/boss_idle_wind/кадр0005.png" id="7_ny0fa"]
+[ext_resource type="Texture2D" uid="uid://sc14jll1x4u8" path="res://resources/textures/characters/boss_idle_wind/кадр0006.png" id="8_uuu0w"]
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_kfqg2"]
+frames = 7
+speed_scale = 5.9
+frame_0/texture = ExtResource("2_x1n1s")
+frame_1/texture = ExtResource("3_cmdv6")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("4_pbf8l")
+frame_2/duration = 1.0
+frame_3/texture = ExtResource("5_b2lbw")
+frame_3/duration = 1.0
+frame_4/texture = ExtResource("6_cddeq")
+frame_4/duration = 1.0
+frame_5/texture = ExtResource("7_ny0fa")
+frame_5/duration = 1.0
+frame_6/texture = ExtResource("8_uuu0w")
+frame_6/duration = 1.0
+
+[sub_resource type="Resource" id="Resource_vmekh"]
+script = ExtResource("1_hutwl")
+texture = SubResource("AnimatedTexture_kfqg2")
+metadata/_custom_type_script = "uid://cyo1hpto3fobw"
+
+[resource]
+script = ExtResource("2_6xsg8")
+code = "boss"
+name = "БОССИХА"
+frames = Dictionary[String, ExtResource("1_hutwl")]({
+"idle": SubResource("Resource_vmekh")
+})
+metadata/_custom_type_script = "uid://bry24mmsdvrgq"

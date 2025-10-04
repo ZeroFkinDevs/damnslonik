@@ -1,0 +1,186 @@
+[gd_scene load_steps=11 format=3 uid="uid://bq8fntaofsqwh"]
+
+[ext_resource type="PackedScene" uid="uid://chkxcrr31soaw" path="res://test_location.tscn" id="1_27fn8"]
+[ext_resource type="Texture2D" uid="uid://dx6rr0naat2nn" path="res://resources/textures/characters/boss.png" id="1_37kl0"]
+[ext_resource type="Texture2D" uid="uid://b1cvdc8r1qnnm" path="res://resources/textures/characters/stag.png" id="2_8uh7m"]
+[ext_resource type="Script" uid="uid://b0x01f6nk40d1" path="res://scripts/ui/dialog_system/dialog_manager.gd" id="2_n5ude"]
+[ext_resource type="Script" uid="uid://2ij06bf8aitp" path="res://scripts/ui/ui_free_space.gd" id="2_nltto"]
+[ext_resource type="Texture2D" uid="uid://8pldkjpix4nk" path="res://resources/ui/textbox.png" id="5_ibotj"]
+[ext_resource type="Script" uid="uid://jrltlb3c72wu" path="res://scripts/ui/effects/printing_text.gd" id="7_y4yjw"]
+[ext_resource type="FontFile" uid="uid://bb1uwgwqm4g8p" path="res://resources/AcPlus_IBM_BIOS.ttf" id="8_waa4j"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n5ude"]
+texture = ExtResource("5_ibotj")
+texture_margin_left = 41.0
+texture_margin_top = 41.0
+texture_margin_right = 41.0
+texture_margin_bottom = 41.0
+region_rect = Rect2(238.40341, 8, 1382.3586, 269)
+
+[sub_resource type="Theme" id="Theme_nltto"]
+Panel/styles/panel = SubResource("StyleBoxTexture_n5ude")
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+ratio = 1.7778
+stretch_mode = 0
+
+[node name="ColorRect2" type="ColorRect" parent="AspectRatioContainer"]
+layout_mode = 2
+color = Color(0.16206557, 0.1620656, 0.16206554, 0.44313726)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="AspectRatioContainer"]
+layout_mode = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="AspectRatioContainer/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(1152, 647)
+size_2d_override = Vector2i(1152, 647)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="TestLocation" parent="AspectRatioContainer/SubViewportContainer/SubViewport" instance=ExtResource("1_27fn8")]
+
+[node name="DialogManager" type="Node" parent="AspectRatioContainer" node_paths=PackedStringArray("free_space", "ui_container", "characters_container", "fade_overlay", "title_printable_text", "text_printable_text")]
+script = ExtResource("2_n5ude")
+free_space = NodePath("../UIFreeSpace")
+ui_container = NodePath("../UIFreeSpace")
+characters_container = NodePath("../UIFreeSpace/VBoxContainer2/CharactersContainer")
+fade_overlay = NodePath("../FadeOverlay")
+title_printable_text = NodePath("../UIFreeSpace/VBoxContainer2/VBoxContainer/VBoxContainer2/VBoxContainer/Title")
+text_printable_text = NodePath("../UIFreeSpace/VBoxContainer2/VBoxContainer/VBoxContainer2/VBoxContainer/Text")
+
+[node name="FadeOverlay" type="ColorRect" parent="AspectRatioContainer"]
+layout_mode = 2
+color = Color(0.07450981, 0.07450981, 0.07450981, 0)
+
+[node name="UIFreeSpace" type="Control" parent="AspectRatioContainer"]
+layout_mode = 2
+script = ExtResource("2_nltto")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="AspectRatioContainer/UIFreeSpace"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -305.0
+offset_top = -185.99597
+offset_right = 305.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="CharactersContainer" type="Control" parent="AspectRatioContainer/UIFreeSpace/VBoxContainer2"]
+layout_mode = 2
+
+[node name="char1" type="TextureRect" parent="AspectRatioContainer/UIFreeSpace/VBoxContainer2/CharactersContainer"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -284.0
+offset_top = -209.0
+offset_right = -12.0
+offset_bottom = 63.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("1_37kl0")
+expand_mode = 4
+
+[node name="char2" type="TextureRect" parent="AspectRatioContainer/UIFreeSpace/VBoxContainer2/CharactersContainer"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = -207.0
+offset_right = 281.0
+offset_bottom = 63.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("2_8uh7m")
+expand_mode = 1
+
+[node name="VBoxContainer" type="MarginContainer" parent="AspectRatioContainer/UIFreeSpace/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 0
+
+[node name="Panel" type="Panel" parent="AspectRatioContainer/UIFreeSpace/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_nltto")
+
+[node name="VBoxContainer2" type="MarginContainer" parent="AspectRatioContainer/UIFreeSpace/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer/UIFreeSpace/VBoxContainer2/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="GridContainer" parent="AspectRatioContainer/UIFreeSpace/VBoxContainer2/VBoxContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 32
+script = ExtResource("7_y4yjw")
+font_file = ExtResource("8_waa4j")
+font_size = 20
+
+[node name="Title" type="Label" parent="AspectRatioContainer/UIFreeSpace/VBoxContainer2/VBoxContainer/VBoxContainer2/VBoxContainer/Title"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "a"
+
+[node name="Text" type="GridContainer" parent="AspectRatioContainer/UIFreeSpace/VBoxContainer2/VBoxContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 50
+script = ExtResource("7_y4yjw")
+font_file = ExtResource("8_waa4j")
+font_size = 12
+
+[node name="Text" type="Label" parent="AspectRatioContainer/UIFreeSpace/VBoxContainer2/VBoxContainer/VBoxContainer2/VBoxContainer/Text"]
+layout_mode = 2
+text = "a"

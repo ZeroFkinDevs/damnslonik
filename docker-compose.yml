@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  damnslonik-game:
+    build: .
+    container_name: damnslonik-game
+    ports:
+      - "80:80"
+    volumes:
+      - /home/games/damnslonik/builds:/home/games/damnslonik/builds
+      - ./logs:/var/log/nginx
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Moscow
+    networks:
+      - godot-network
+
+networks:
+  godot-network:
+    driver: bridge

@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="CharacterResource" load_steps=7 format=3 uid="uid://cd2epkfwdtbog"]
+
+[ext_resource type="Script" uid="uid://cyo1hpto3fobw" path="res://scripts/ui/dialog_system/character_frame_resource.gd" id="1_apvi2"]
+[ext_resource type="Texture2D" uid="uid://b1cvdc8r1qnnm" path="res://resources/textures/characters/stag.png" id="2_apvi2"]
+[ext_resource type="Script" uid="uid://bry24mmsdvrgq" path="res://scripts/ui/dialog_system/character_resource.gd" id="3_e2pj2"]
+[ext_resource type="Texture2D" uid="uid://d3fbbw6scx274" path="res://resources/textures/characters/stag_look.png" id="3_j8w4t"]
+
+[sub_resource type="Resource" id="Resource_j8w4t"]
+script = ExtResource("1_apvi2")
+texture = ExtResource("2_apvi2")
+metadata/_custom_type_script = "uid://cyo1hpto3fobw"
+
+[sub_resource type="Resource" id="Resource_e2pj2"]
+script = ExtResource("1_apvi2")
+texture = ExtResource("3_j8w4t")
+metadata/_custom_type_script = "uid://cyo1hpto3fobw"
+
+[resource]
+script = ExtResource("3_e2pj2")
+code = "stag"
+name = "СТАЖЕРИЩЕ"
+frames = Dictionary[String, ExtResource("1_apvi2")]({
+"idle": SubResource("Resource_j8w4t"),
+"look": SubResource("Resource_e2pj2")
+})
+metadata/_custom_type_script = "uid://bry24mmsdvrgq"
