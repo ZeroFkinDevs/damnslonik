@@ -37,7 +37,7 @@ jobs:
       - name: Create Version Directory
         run: |
           # Создаем уникальное имя версии с датой и комментарием
-          VERSION_NAME="v$(date +%Y%m%d-%H%M%S)"
+          VERSION_NAME="v$(date +%Y-%m-%d-%H-%M-%S)"
           VERSION_NAME="${VERSION_NAME}-${GITHUB_SHA::7}"
 
           echo "VERSION_NAME=$VERSION_NAME" >> $GITHUB_ENV
