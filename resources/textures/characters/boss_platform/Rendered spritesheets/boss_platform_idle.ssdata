@@ -1,0 +1,19 @@
+{
+	"baseObjectName": "boss_platform",
+	"spriteWidth": 128,
+	"spriteHeight": 128,
+	"paddingWidth": 0,
+	"paddingHeight": 0,
+	"numColumns": 5,
+	"numRows": 4,
+	"imageFile": "boss_platform_idle.png",
+	"animations": [
+		{
+			"frameRate": 24,
+			"frameSkip": 0,
+			"name": "idle",
+			"numFrames": 18,
+			"startFrame": 0
+		}
+	]
+}

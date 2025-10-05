@@ -137,7 +137,7 @@ position = Vector2(2, 25)
 
 [node name="Narrative" type="Node" parent="Ladder2" node_paths=PackedStringArray("boxes")]
 script = ExtResource("6_thsex")
-boxes = [NodePath("../RigidBody2D"), NodePath("../RigidBody2D2"), NodePath("../RigidBody2D3"), NodePath("../RigidBody2D4"), NodePath("../RigidBody2D5")]
+boxes = [NodePath("../RigidBody2D"), NodePath("../RigidBody2D2"), NodePath("../RigidBody2D3"), NodePath("../RigidBody2D4")]
 
 [node name="RigidBody2D" type="RigidBody2D" parent="Ladder2"]
 position = Vector2(-6, -519)

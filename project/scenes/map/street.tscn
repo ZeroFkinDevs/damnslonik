@@ -1,0 +1,267 @@
+[gd_scene load_steps=21 format=3 uid="uid://dfhav06mxxqam"]
+
+[ext_resource type="Script" uid="uid://gs8j4rfgkmtn" path="res://scripts/effects/fixed_parallax.gd" id="1_0cpq3"]
+[ext_resource type="Texture2D" uid="uid://sadpx7gtolb3" path="res://resources/textures/map/bg.png" id="1_xf031"]
+[ext_resource type="Texture2D" uid="uid://d1wb76lbbs4oc" path="res://resources/textures/light.png" id="2_hjkjg"]
+[ext_resource type="Texture2D" uid="uid://d4ho87kgfmv73" path="res://resources/textures/map/street/street.png" id="3_pbn5g"]
+[ext_resource type="Script" uid="uid://je6530bv1g7q" path="res://scripts/entity/player/player_spawner.gd" id="4_cmb6x"]
+[ext_resource type="Texture2D" uid="uid://cdqdup1iv4sk5" path="res://resources/textures/map/street/street_without_bg.png" id="5_cmb6x"]
+[ext_resource type="Script" uid="uid://ckq526nxnm7gw" path="res://scripts/entity/triggers/narrative_trigger.gd" id="6_0cpq3"]
+[ext_resource type="Texture2D" uid="uid://bgu6pelrxc83y" path="res://resources/textures/rain_drop.png" id="6_oesqg"]
+[ext_resource type="Script" uid="uid://dstlmxl1weurm" path="res://scripts/narrative/street/street_wet_narrative.gd" id="8_axxfu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cmb6x"]
+atlas = ExtResource("5_cmb6x")
+region = Rect2(43.01529, 27.907654, 546.61523, 653.79474)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aj2qc"]
+atlas = ExtResource("5_cmb6x")
+region = Rect2(646.9999, 515.99994, 124, 148.00006)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8q7ur"]
+atlas = ExtResource("5_cmb6x")
+region = Rect2(1166.2908, 647.0247, 122.60278, 44.337463)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_axxfu"]
+atlas = ExtResource("5_cmb6x")
+region = Rect2(43.01529, 550.4522, 546.61523, 131.25018)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0cpq3"]
+atlas = ExtResource("5_cmb6x")
+region = Rect2(811.9734, 2.9742508, 309.8462, 728.6548)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oesqg"]
+atlas = ExtResource("3_pbn5g")
+region = Rect2(-23.4953, 773.307, 1631.2715, 248.65631)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_bnev2"]
+polygon = PackedVector2Array(-821, -92, -299, -83, -25, -88, 272, -85, 468, -80, 814, -93, 811, 119, -814, 119)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8q7ur"]
+size = Vector2(114, 109)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfxgy"]
+atlas = ExtResource("5_cmb6x")
+region = Rect2(281.34372, 1119.9208, 370.90518, 389.0614)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bnev2"]
+atlas = ExtResource("5_cmb6x")
+region = Rect2(84.22055, 1062.8582, 121.905945, 578.4048)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_oesqg"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(700, 1, 1)
+angle_min = -39.99999
+angle_max = -39.99999
+direction = Vector3(-1, 1, 0)
+spread = 5.103
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.099999994
+scale_max = 0.5
+collision_mode = 2
+collision_use_scale = true
+
+[node name="TestLocation" type="Node2D"]
+texture_filter = 1
+
+[node name="background" type="Node2D" parent="."]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="background"]
+color = Color(0.29954746, 0.29954746, 0.29954743, 1)
+
+[node name="Parallax2D" type="Parallax2D" parent="background"]
+scroll_scale = Vector2(0.8, 0.8)
+script = ExtResource("1_0cpq3")
+
+[node name="Bg" type="Sprite2D" parent="background/Parallax2D"]
+visible = false
+position = Vector2(627, 481)
+scale = Vector2(2.6693118, 2.669312)
+texture = ExtResource("1_xf031")
+
+[node name="Sprite2D3" type="Sprite2D" parent="background/Parallax2D"]
+modulate = Color(0.2592937, 0.2592937, 0.25929365, 1)
+position = Vector2(405, 340)
+texture = SubResource("AtlasTexture_cmb6x")
+
+[node name="Sprite2D4" type="Sprite2D" parent="background/Parallax2D"]
+modulate = Color(0.2592937, 0.2592937, 0.25929365, 1)
+position = Vector2(967, 335)
+texture = SubResource("AtlasTexture_cmb6x")
+
+[node name="PointLight2D2" type="PointLight2D" parent="background"]
+texture_filter = 1
+position = Vector2(1026, 356)
+energy = 1.84
+shadow_enabled = true
+texture = ExtResource("2_hjkjg")
+texture_scale = 1.27
+
+[node name="PointLight2D4" type="PointLight2D" parent="background"]
+texture_filter = 1
+position = Vector2(1315, 563)
+scale = Vector2(0.33503938, 0.33503938)
+energy = 1.84
+shadow_enabled = true
+texture = ExtResource("2_hjkjg")
+texture_scale = 1.27
+
+[node name="PointLight2D3" type="PointLight2D" parent="background"]
+texture_filter = 1
+position = Vector2(660, -118)
+energy = 1.84
+shadow_enabled = true
+texture = ExtResource("2_hjkjg")
+texture_scale = 1.27
+
+[node name="PointLight2D" type="PointLight2D" parent="background"]
+texture_filter = 1
+position = Vector2(335, 362)
+energy = 1.7
+shadow_enabled = true
+texture = ExtResource("2_hjkjg")
+texture_scale = 1.27
+
+[node name="Sprite2D" type="Sprite2D" parent="background"]
+modulate = Color(0.5132329, 0.5132329, 0.5132329, 1)
+position = Vector2(1291, 284)
+texture = SubResource("AtlasTexture_cmb6x")
+
+[node name="Sprite2D3" type="Sprite2D" parent="background"]
+modulate = Color(0.5132329, 0.5132329, 0.5132329, 1)
+position = Vector2(1148.75, 496.99997)
+scale = Vector2(1.157258, 1.1572583)
+texture = SubResource("AtlasTexture_aj2qc")
+
+[node name="Sprite2D5" type="Sprite2D" parent="background"]
+modulate = Color(0.5132329, 0.5132329, 0.5132329, 1)
+position = Vector2(1317, 554)
+scale = Vector2(1.157258, 1.1572583)
+texture = SubResource("AtlasTexture_8q7ur")
+
+[node name="Sprite2D4" type="Sprite2D" parent="background"]
+modulate = Color(0.5132329, 0.5132329, 0.5132329, 1)
+position = Vector2(1473, 496.99997)
+scale = Vector2(1.157258, 1.1572583)
+texture = SubResource("AtlasTexture_aj2qc")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="background"]
+position = Vector2(769, 192)
+scale = Vector2(1.1860842, 1.1860842)
+
+[node name="Sprite2D2" type="Sprite2D" parent="background/StaticBody2D4"]
+modulate = Color(0.5132329, 0.5132329, 0.5132329, 1)
+position = Vector2(-83.46796, 77.56618)
+scale = Vector2(0.8431105, 0.8431105)
+texture = SubResource("AtlasTexture_cmb6x")
+
+[node name="Sprite2D4" type="Sprite2D" parent="background/StaticBody2D4"]
+position = Vector2(-83.46796, 295.93176)
+scale = Vector2(0.8431105, 0.8431105)
+texture = SubResource("AtlasTexture_axxfu")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="background/StaticBody2D4"]
+polygon = PackedVector2Array(-297.618, 240.2865, -147.54434, 243.65894, -28.665771, 239.44339, 134.8977, 239.44339, 132.36835, 327.12686, -297.618, 327.96997)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="background"]
+position = Vector2(174.00002, 177)
+scale = Vector2(1.1860842, 1.1860842)
+
+[node name="Sprite2D2" type="Sprite2D" parent="background/StaticBody2D2"]
+texture = SubResource("AtlasTexture_0cpq3")
+
+[node name="Sprite2D3" type="Sprite2D" parent="background/StaticBody2D2"]
+position = Vector2(-182.1119, 0)
+texture = SubResource("AtlasTexture_0cpq3")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="background/StaticBody2D2"]
+polygon = PackedVector2Array(27.822647, 332.18555, -133.21147, 331.34244, -136.58391, -355.79263, 62.390167, -360.00818, 90.212814, 141.64255, 145.85812, 139.95633, 146.70123, 167.77899, 26.136414, 172.83765)
+
+[node name="PlayerSpawner" type="Node2D" parent="."]
+position = Vector2(335, 467)
+scale = Vector2(0.436, 0.436)
+script = ExtResource("4_cmb6x")
+code = "street_start"
+
+[node name="foreground" type="Node2D" parent="."]
+z_index = 2
+
+[node name="StaticBody2D" type="StaticBody2D" parent="foreground"]
+position = Vector2(828, 667)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D2" type="Sprite2D" parent="foreground/StaticBody2D"]
+texture = SubResource("AtlasTexture_oesqg")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="foreground/StaticBody2D"]
+polygon = PackedVector2Array(-817, -101, -586, -99, -247, -93, -31, -97, 162, -97, 307, -95, 482, -94, 813, -104, 814, 119, -815, 120)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="foreground/StaticBody2D"]
+occluder = SubResource("OccluderPolygon2D_bnev2")
+
+[node name="street_wet_narrative" type="Area2D" parent="foreground" node_paths=PackedStringArray("narrative")]
+position = Vector2(879, 391)
+script = ExtResource("6_0cpq3")
+narrative = NodePath("Narrative")
+delay = 3.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="foreground/street_wet_narrative"]
+position = Vector2(0, 26.5)
+shape = SubResource("RectangleShape2D_8q7ur")
+
+[node name="Narrative" type="Node" parent="foreground/street_wet_narrative"]
+script = ExtResource("8_axxfu")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="foreground"]
+position = Vector2(-801, 667)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D2" type="Sprite2D" parent="foreground/StaticBody2D3"]
+texture = SubResource("AtlasTexture_oesqg")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="foreground/StaticBody2D3"]
+polygon = PackedVector2Array(-817, -101, -586, -99, -247, -93, -31, -97, 162, -97, 307, -95, 482, -94, 813, -104, 814, 119, -815, 120)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="foreground/StaticBody2D3"]
+occluder = SubResource("OccluderPolygon2D_bnev2")
+
+[node name="Parallax2D2" type="Parallax2D" parent="foreground"]
+scroll_scale = Vector2(1.2, 1.2)
+script = ExtResource("1_0cpq3")
+
+[node name="Sprite2D2" type="Sprite2D" parent="foreground/Parallax2D2"]
+position = Vector2(762, 586)
+texture = SubResource("AtlasTexture_wfxgy")
+
+[node name="Sprite2D" type="Sprite2D" parent="foreground/Parallax2D2"]
+position = Vector2(346, 551)
+texture = SubResource("AtlasTexture_bnev2")
+
+[node name="Sprite2D3" type="Sprite2D" parent="foreground/Parallax2D2"]
+position = Vector2(986, 571)
+texture = SubResource("AtlasTexture_bnev2")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="foreground"]
+position = Vector2(1013, -151)
+amount = 20
+texture = ExtResource("6_oesqg")
+lifetime = 10.0
+preprocess = 5.13
+speed_scale = 7.7
+collision_base_size = 4.66
+visibility_rect = Rect2(-900, 0, 900, 900)
+process_material = SubResource("ParticleProcessMaterial_oesqg")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="foreground"]
+position = Vector2(1903, -155)
+amount = 20
+texture = ExtResource("6_oesqg")
+lifetime = 10.0
+preprocess = 5.13
+speed_scale = 7.7
+collision_base_size = 4.66
+visibility_rect = Rect2(-900, 0, 900, 900)
+process_material = SubResource("ParticleProcessMaterial_oesqg")

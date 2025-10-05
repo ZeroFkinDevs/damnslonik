@@ -53,5 +53,5 @@ func activate():
 		
 func deactivate():
 	var tween = create_tween()
-	tween.tween_property(self, "modulate", Color.from_rgba8(255,255,255,150), 0.2)\
+	tween.tween_property(self, "modulate", Color.from_rgba8(255,255,255,100), 0.2)\
 		.set_trans(Tween.TRANS_CUBIC)

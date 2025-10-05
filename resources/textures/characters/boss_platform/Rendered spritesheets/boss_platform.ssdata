@@ -1,0 +1,19 @@
+{
+	"baseObjectName": "boss_platform",
+	"spriteWidth": 128,
+	"spriteHeight": 128,
+	"paddingWidth": 0,
+	"paddingHeight": 0,
+	"numColumns": 6,
+	"numRows": 4,
+	"imageFile": "boss_platform.png",
+	"animations": [
+		{
+			"frameRate": 24,
+			"frameSkip": 0,
+			"name": "walk",
+			"numFrames": 23,
+			"startFrame": 0
+		}
+	]
+}
