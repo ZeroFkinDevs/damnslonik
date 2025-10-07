@@ -1,0 +1,19 @@
+{
+	"baseObjectName": "use_icon",
+	"spriteWidth": 128,
+	"spriteHeight": 128,
+	"paddingWidth": 0,
+	"paddingHeight": 0,
+	"numColumns": 9,
+	"numRows": 7,
+	"imageFile": "use_icon.png",
+	"animations": [
+		{
+			"frameRate": 24,
+			"frameSkip": 0,
+			"name": "Action",
+			"numFrames": 61,
+			"startFrame": 0
+		}
+	]
+}

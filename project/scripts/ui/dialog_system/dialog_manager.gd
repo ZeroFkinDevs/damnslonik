@@ -5,7 +5,7 @@ class_name DialogManager
 @export var ui_container: Control
 @export var characters_container: Control
 
-@export var fade_overlay: ColorRect
+@export var fade_overlay: FadeOverlay
 
 @export var title_printable_text: PrintingText
 @export var text_printable_text: PrintingText
@@ -89,16 +89,12 @@ func ui_fade_in():
 	ui_container.mouse_filter = Control.MOUSE_FILTER_STOP
 	var tween = create_tween()
 	var duration = 0.1
-	var color = fade_overlay.color
-	color.a = 0.7
-	tween.tween_property(fade_overlay, "color", color, duration)
 	tween.tween_property(ui_container, "modulate", Color.from_rgba8(255, 255, 255, 255), duration)
+	fade_overlay.fade_to_value(0.7, duration)
 
 func ui_fade_out():
 	ui_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var tween = create_tween()
 	var duration = 0.1
-	var color = fade_overlay.color
-	color.a = 0
-	tween.tween_property(fade_overlay, "color", color, duration)
 	tween.tween_property(ui_container, "modulate", Color.from_rgba8(255, 255, 255, 0), duration)
+	fade_overlay.fade_to_value(0, duration)

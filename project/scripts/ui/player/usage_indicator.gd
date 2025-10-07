@@ -1,8 +1,12 @@
-extends Control
+extends Node2D
 class_name UsageIndicator
 
 @export var use_region: PlayerUseRegion
 @export var label: Label
+@export var sprite: AnimatedSprite2D
+
+func _ready() -> void:
+	sprite.play("default")
 
 func _process(delta: float) -> void:
 	if use_region.get_usable_object() == null:

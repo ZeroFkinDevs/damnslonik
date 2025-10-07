@@ -19,7 +19,11 @@ func on_body_entered(body):
 
 func run_trigger(obj_triggered):
 	_obj_triggered = obj_triggered
-	timer = delay
+	if delay > 0:
+		timer = delay
+	else:
+		trigger(_obj_triggered)
+		_obj_triggered = null
 
 func _process(delta: float) -> void:
 	if timer > 0: timer -= delta

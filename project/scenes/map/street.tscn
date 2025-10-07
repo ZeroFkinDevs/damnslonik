@@ -1,14 +1,19 @@
-[gd_scene load_steps=21 format=3 uid="uid://dfhav06mxxqam"]
+[gd_scene load_steps=35 format=3 uid="uid://dfhav06mxxqam"]
 
 [ext_resource type="Script" uid="uid://gs8j4rfgkmtn" path="res://scripts/effects/fixed_parallax.gd" id="1_0cpq3"]
 [ext_resource type="Texture2D" uid="uid://sadpx7gtolb3" path="res://resources/textures/map/bg.png" id="1_xf031"]
 [ext_resource type="Texture2D" uid="uid://d1wb76lbbs4oc" path="res://resources/textures/light.png" id="2_hjkjg"]
 [ext_resource type="Texture2D" uid="uid://d4ho87kgfmv73" path="res://resources/textures/map/street/street.png" id="3_pbn5g"]
 [ext_resource type="Script" uid="uid://je6530bv1g7q" path="res://scripts/entity/player/player_spawner.gd" id="4_cmb6x"]
+[ext_resource type="Script" uid="uid://b5cpkqujdl1hu" path="res://scripts/entity/interactive/hatch.gd" id="5_8q7ur"]
 [ext_resource type="Texture2D" uid="uid://cdqdup1iv4sk5" path="res://resources/textures/map/street/street_without_bg.png" id="5_cmb6x"]
 [ext_resource type="Script" uid="uid://ckq526nxnm7gw" path="res://scripts/entity/triggers/narrative_trigger.gd" id="6_0cpq3"]
 [ext_resource type="Texture2D" uid="uid://bgu6pelrxc83y" path="res://resources/textures/rain_drop.png" id="6_oesqg"]
+[ext_resource type="Script" uid="uid://brpgurmger6ol" path="res://scripts/entity/interactive/ladder.gd" id="7_a7ivt"]
+[ext_resource type="Script" uid="uid://buftb2secsi62" path="res://scripts/entity/triggers/map_teleport_trigger.gd" id="7_gs6ay"]
 [ext_resource type="Script" uid="uid://dstlmxl1weurm" path="res://scripts/narrative/street/street_wet_narrative.gd" id="8_axxfu"]
+[ext_resource type="PackedScene" uid="uid://bfm3jsvq3cshm" path="res://scenes/objects/interactive/story_drop.tscn" id="11_8q7ur"]
+[ext_resource type="Script" uid="uid://btjg7vamnmrgv" path="res://scripts/narrative/story_drops/story_drops_manager.gd" id="13_a7ivt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cmb6x"]
 atlas = ExtResource("5_cmb6x")
@@ -18,10 +23,6 @@ region = Rect2(43.01529, 27.907654, 546.61523, 653.79474)
 atlas = ExtResource("5_cmb6x")
 region = Rect2(646.9999, 515.99994, 124, 148.00006)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8q7ur"]
-atlas = ExtResource("5_cmb6x")
-region = Rect2(1166.2908, 647.0247, 122.60278, 44.337463)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_axxfu"]
 atlas = ExtResource("5_cmb6x")
 region = Rect2(43.01529, 550.4522, 546.61523, 131.25018)
@@ -29,6 +30,113 @@ region = Rect2(43.01529, 550.4522, 546.61523, 131.25018)
 [sub_resource type="AtlasTexture" id="AtlasTexture_0cpq3"]
 atlas = ExtResource("5_cmb6x")
 region = Rect2(811.9734, 2.9742508, 309.8462, 728.6548)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gs6ay"]
+size = Vector2(79.49829, 27.65149)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a7ivt"]
+atlas = ExtResource("5_cmb6x")
+region = Rect2(1183.8535, 472.47717, 76.76172, 128.07745)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7jigp"]
+size = Vector2(47.526123, 55.30311)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8q7ur"]
+atlas = ExtResource("5_cmb6x")
+region = Rect2(1166.2908, 647.0247, 122.60278, 44.337463)
+
+[sub_resource type="Animation" id="Animation_8q7ur"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ladder:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-0.86413574, 96.78047)]
+}
+
+[sub_resource type="Animation" id="Animation_a7ivt"]
+resource_name = "close"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5, 0.7),
+"transitions": PackedFloat32Array(1.2311442, 0.20306355, 2.219139, 0.51763254),
+"update": 0,
+"values": [1.748819910498318, 0.0, 0.2642021, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ladder:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-0.864, -40), Vector2(-0.864, 96.78)]
+}
+
+[sub_resource type="Animation" id="Animation_aj2qc"]
+resource_name = "open"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.8143518, 1.7483643]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ladder:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 1),
+"transitions": PackedFloat32Array(1, 0.2973018, 1),
+"update": 0,
+"values": [Vector2(-0.86413574, 96.78047), Vector2(-0.86413574, 96.78047), Vector2(-0.864, -40)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7jigp"]
+_data = {
+&"RESET": SubResource("Animation_8q7ur"),
+&"close": SubResource("Animation_a7ivt"),
+&"open": SubResource("Animation_aj2qc")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a7ivt"]
+size = Vector2(120.975586, 102.829254)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oesqg"]
 atlas = ExtResource("3_pbn5g")
@@ -61,8 +169,26 @@ initial_velocity_max = 100.0
 gravity = Vector3(0, 0, 0)
 scale_min = 0.099999994
 scale_max = 0.5
-collision_mode = 2
-collision_use_scale = true
+
+[sub_resource type="GDScript" id="GDScript_aj2qc"]
+resource_name = "drop-1"
+script/source = "extends NarrativeNode
+
+func execute():
+	var dialog = Global.get_dialog_manager()
+	
+	NarrativeManager.start_preparing_new_units()
+	NarrativeManager.append_unit({
+		\"method\": func():
+			dialog.clear_characters()
+			dialog.set_character(\"boss\", \"idle\", -1)
+			dialog.set_character(\"stag\", \"idle\", 1)
+			dialog.print_text(\"boss\", \"привет\")
+			if await dialog.start_dialog_step():
+				NarrativeManager.execute_next()
+	})
+	NarrativeManager.execute_prepared()
+"
 
 [node name="TestLocation" type="Node2D"]
 texture_filter = 1
@@ -136,12 +262,6 @@ position = Vector2(1148.75, 496.99997)
 scale = Vector2(1.157258, 1.1572583)
 texture = SubResource("AtlasTexture_aj2qc")
 
-[node name="Sprite2D5" type="Sprite2D" parent="background"]
-modulate = Color(0.5132329, 0.5132329, 0.5132329, 1)
-position = Vector2(1317, 554)
-scale = Vector2(1.157258, 1.1572583)
-texture = SubResource("AtlasTexture_8q7ur")
-
 [node name="Sprite2D4" type="Sprite2D" parent="background"]
 modulate = Color(0.5132329, 0.5132329, 0.5132329, 1)
 position = Vector2(1473, 496.99997)
@@ -181,13 +301,83 @@ texture = SubResource("AtlasTexture_0cpq3")
 polygon = PackedVector2Array(27.822647, 332.18555, -133.21147, 331.34244, -136.58391, -355.79263, 62.390167, -360.00818, 90.212814, 141.64255, 145.85812, 139.95633, 146.70123, 167.77899, 26.136414, 172.83765)
 
 [node name="PlayerSpawner" type="Node2D" parent="."]
-position = Vector2(335, 467)
+position = Vector2(1036, 467.00003)
 scale = Vector2(0.436, 0.436)
 script = ExtResource("4_cmb6x")
 code = "street_start"
 
+[node name="PlayerSpawner2" type="Node2D" parent="."]
+position = Vector2(1319, 462.00003)
+scale = Vector2(0.436, 0.436)
+script = ExtResource("4_cmb6x")
+code = "street_hatch_0"
+
 [node name="foreground" type="Node2D" parent="."]
 z_index = 2
+
+[node name="hatch" type="Area2D" parent="foreground" node_paths=PackedStringArray("animation_player", "display_point")]
+position = Vector2(1317, 554)
+scale = Vector2(1.157258, 1.1572583)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("5_8q7ur")
+animation_player = NodePath("AnimationPlayer")
+label = "hatch"
+display_point = NodePath("Node2D/Sprite2D5")
+metadata/_custom_type_script = "uid://85bbajjok1x5"
+
+[node name="Trigger" type="Area2D" parent="foreground/hatch"]
+position = Vector2(0, 141.71426)
+script = ExtResource("7_gs6ay")
+map_code = "test_location"
+spawn_code = "hatch_0"
+metadata/_custom_type_script = "uid://cqx8uin01bujl"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="foreground/hatch/Trigger"]
+shape = SubResource("RectangleShape2D_gs6ay")
+
+[node name="ladder" type="Area2D" parent="foreground/hatch" node_paths=PackedStringArray("player_point")]
+position = Vector2(-0.86413574, 96.78047)
+script = ExtResource("7_a7ivt")
+player_point = NodePath("Node2D")
+
+[node name="Sprite2D6" type="Sprite2D" parent="foreground/hatch/ladder"]
+modulate = Color(0.5132329, 0.5132329, 0.5132329, 1)
+position = Vector2(-0.020885509, -0.80836487)
+texture = SubResource("AtlasTexture_a7ivt")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="foreground/hatch/ladder"]
+position = Vector2(-1.2961426, 67.401306)
+shape = SubResource("RectangleShape2D_7jigp")
+
+[node name="Node2D" type="Node2D" parent="foreground/hatch/ladder"]
+position = Vector2(-17.282335, 0.00047467055)
+
+[node name="Node2D" type="Node2D" parent="foreground/hatch"]
+position = Vector2(54.43903, 14.689893)
+
+[node name="Sprite2D5" type="Sprite2D" parent="foreground/hatch/Node2D"]
+modulate = Color(0.5132329, 0.5132329, 0.5132329, 1)
+position = Vector2(-55.30314, -17.282227)
+texture = SubResource("AtlasTexture_8q7ur")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="foreground/hatch"]
+libraries = {
+&"": SubResource("AnimationLibrary_7jigp")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="foreground/hatch"]
+position = Vector2(0, -35.860596)
+shape = SubResource("RectangleShape2D_a7ivt")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="foreground/hatch"]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="foreground/hatch/StaticBody2D"]
+position = Vector2(0, 164.18118)
+shape = SubResource("RectangleShape2D_gs6ay")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="foreground"]
 position = Vector2(828, 667)
@@ -245,14 +435,14 @@ position = Vector2(986, 571)
 texture = SubResource("AtlasTexture_bnev2")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="foreground"]
-position = Vector2(1013, -151)
+position = Vector2(1006, -154)
 amount = 20
 texture = ExtResource("6_oesqg")
 lifetime = 10.0
 preprocess = 5.13
 speed_scale = 7.7
-collision_base_size = 4.66
-visibility_rect = Rect2(-900, 0, 900, 900)
+collision_base_size = 0.61
+visibility_rect = Rect2(-900, -400, 900, 1200)
 process_material = SubResource("ParticleProcessMaterial_oesqg")
 
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="foreground"]
@@ -263,5 +453,17 @@ lifetime = 10.0
 preprocess = 5.13
 speed_scale = 7.7
 collision_base_size = 4.66
-visibility_rect = Rect2(-900, 0, 900, 900)
+visibility_rect = Rect2(-900, -400, 900, 1200)
 process_material = SubResource("ParticleProcessMaterial_oesqg")
+
+[node name="StoryDropsManager" type="Node2D" parent="foreground"]
+script = ExtResource("13_a7ivt")
+min_delay = 5.0
+max_delay = 10.0
+
+[node name="StoryDrop" parent="foreground/StoryDropsManager" node_paths=PackedStringArray("narrative") instance=ExtResource("11_8q7ur")]
+position = Vector2(6, -438.99994)
+narrative = NodePath("narrative")
+
+[node name="narrative" type="Node" parent="foreground/StoryDropsManager/StoryDrop"]
+script = SubResource("GDScript_aj2qc")
