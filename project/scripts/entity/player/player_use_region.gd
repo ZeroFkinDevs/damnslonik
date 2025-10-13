@@ -2,8 +2,16 @@ extends Area2D
 class_name PlayerUseRegion
 
 var usable_object: Node2D
+var enabled = true
+
+func disable():
+	enabled = false
+	
+func enable():
+	enabled = true
 
 func _physics_process(delta: float) -> void:
+	if !enabled: return
 	if Input.is_action_just_pressed("use"):
 		if usable_object != null:
 			if usable_object is InteractiveArea:

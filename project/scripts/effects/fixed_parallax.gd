@@ -1,9 +1,13 @@
 extends Parallax2D
 
+@export var pose = true;
+
 func _ready() -> void:
 	#pass
+	if !pose: return
 	for child in get_children():
 		pose_child(child)
+	pose = false
 	
 func pose_child(child:Node2D):
 	var w = ProjectSettings.get("display/window/size/viewport_width")

@@ -12,6 +12,7 @@ func enable():
 	active = true
 
 func disable():
+	play_idle()
 	active = false
 
 # Get the gravity from the project settings so you can sync with rigid body nodes.

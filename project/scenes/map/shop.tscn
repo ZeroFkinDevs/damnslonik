@@ -1,0 +1,144 @@
+[gd_scene load_steps=15 format=3 uid="uid://c8p5x22xwrejo"]
+
+[ext_resource type="Script" uid="uid://gs8j4rfgkmtn" path="res://scripts/effects/fixed_parallax.gd" id="1_vjvbs"]
+[ext_resource type="Texture2D" uid="uid://d08oaamek1pa0" path="res://resources/textures/map/shop/shop_without_bg.png" id="2_jno05"]
+[ext_resource type="Texture2D" uid="uid://d1wb76lbbs4oc" path="res://resources/textures/light.png" id="4_6if6h"]
+[ext_resource type="Script" uid="uid://je6530bv1g7q" path="res://scripts/entity/player/player_spawner.gd" id="5_hxmnt"]
+[ext_resource type="AudioStream" uid="uid://bvqaiwf7uoxke" path="res://resources/audio/music/shop_music.ogg" id="5_jno05"]
+[ext_resource type="Texture2D" uid="uid://bfmw6qrk5ftrp" path="res://resources/textures/characters/guard/guard_platform.png" id="6_itdik"]
+[ext_resource type="Script" uid="uid://bmpqxq338duho" path="res://scripts/entity/interactive/door.gd" id="6_onjla"]
+[ext_resource type="Script" uid="uid://cls6x3ngtus4j" path="res://scripts/effects/post_processing_node.gd" id="8_8jx8q"]
+[ext_resource type="Material" uid="uid://3jn8cokxxpxu" path="res://resources/post-processing/shop_post_processing.tres" id="9_u7uwu"]
+[ext_resource type="Script" uid="uid://btjg7vamnmrgv" path="res://scripts/narrative/story_drops/story_drops_manager.gd" id="15_tpmre"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_onjla"]
+atlas = ExtResource("2_jno05")
+region = Rect2(-9.65271, -3.581009, 2174.037, 1041.389)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_onjla"]
+size = Vector2(421, 683)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4qwlk"]
+size = Vector2(77, 154)
+
+[sub_resource type="Environment" id="Environment_4qwlk"]
+
+[node name="TestLocation" type="Node2D"]
+texture_filter = 1
+
+[node name="background" type="Node2D" parent="."]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="background"]
+
+[node name="PointLight2D5" type="PointLight2D" parent="background/CanvasModulate"]
+texture_filter = 1
+position = Vector2(305, 374)
+energy = 1.1
+shadow_enabled = true
+texture = ExtResource("4_6if6h")
+texture_scale = 1.5
+
+[node name="PointLight2D6" type="PointLight2D" parent="background/CanvasModulate"]
+texture_filter = 1
+position = Vector2(924, 354)
+energy = 1.1
+shadow_enabled = true
+texture = ExtResource("4_6if6h")
+texture_scale = 1.5
+
+[node name="Parallax2D" type="Parallax2D" parent="background"]
+scroll_scale = Vector2(0.8, 0.8)
+script = ExtResource("1_vjvbs")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="background"]
+position = Vector2(769, 192)
+scale = Vector2(1.1860842, 1.1860842)
+
+[node name="Sprite2D2" type="Sprite2D" parent="background/StaticBody2D4"]
+position = Vector2(187.17052, 221.7381)
+scale = Vector2(0.776, 0.776)
+texture = SubResource("AtlasTexture_onjla")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="background/StaticBody2D4"]
+position = Vector2(-257.99182, 69.13506)
+polygon = PackedVector2Array(-295.08868, 229.32607, -231.01228, 240.28648, -120.56482, 239.44337, -26.979553, 236.07094, 103.702576, 231.01228, 238.60028, 229.32607, 240.2865, 327.96997, -297.618, 327.96997)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="background/StaticBody2D4"]
+position = Vector2(-779.0341, -87.683495)
+polygon = PackedVector2Array(145.01501, 99.487045, 209.93451, 102.85948, 225.95361, 432.5157, 147.54434, 424.0846)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="background/StaticBody2D4"]
+position = Vector2(-714.1146, -433.3588)
+polygon = PackedVector2Array(104.54576, 376.87036, 748.6822, 365.06683, 746.996, 461.18143, 408.06552, 459.4952, 408.06552, 576.68756, 379.39978, 576.68756, 374.38455, 461.18143, 102.01642, 461.18143)
+
+[node name="Area2D" type="Area2D" parent="background"]
+audio_bus_override = true
+audio_bus_name = &"reverb"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/Area2D"]
+position = Vector2(200.5, 331.5)
+shape = SubResource("RectangleShape2D_onjla")
+
+[node name="InteractiveArea" type="Area2D" parent="." node_paths=PackedStringArray("display_point")]
+position = Vector2(105, 465)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("6_onjla")
+map_code = "street"
+spawn_code = "street_shop"
+label = "Shop"
+display_point = NodePath(".")
+metadata/_custom_type_script = "uid://85bbajjok1x5"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractiveArea"]
+position = Vector2(-13.5, 5)
+shape = SubResource("RectangleShape2D_4qwlk")
+
+[node name="PlayerSpawner" type="Node2D" parent="."]
+position = Vector2(179.00002, 475.00003)
+scale = Vector2(0.436, 0.436)
+script = ExtResource("5_hxmnt")
+code = "shop_entrance"
+
+[node name="foreground" type="Node2D" parent="."]
+z_index = 2
+
+[node name="GuardPlatform" type="Sprite2D" parent="foreground"]
+position = Vector2(648, 435)
+scale = Vector2(0.454, 0.454)
+texture = ExtResource("6_itdik")
+flip_h = true
+
+[node name="Parallax2D2" type="Parallax2D" parent="foreground"]
+scroll_scale = Vector2(1.2, 1.2)
+script = ExtResource("1_vjvbs")
+
+[node name="StoryDropsManager" type="Node2D" parent="foreground"]
+script = ExtResource("15_tpmre")
+min_delay = 5.0
+max_delay = 10.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(247, 375)
+stream = ExtResource("5_jno05")
+volume_db = -6.926
+autoplay = true
+max_distance = 260.0
+panning_strength = 0.5
+parameters/looping = true
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(688, 344)
+stream = ExtResource("5_jno05")
+volume_db = -1.148
+autoplay = true
+max_distance = 428.0
+panning_strength = 0.5
+parameters/looping = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_4qwlk")
+
+[node name="PostProcessingNode" type="Node" parent="."]
+script = ExtResource("8_8jx8q")
+material = ExtResource("9_u7uwu")

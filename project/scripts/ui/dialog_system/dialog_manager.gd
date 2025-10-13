@@ -61,6 +61,7 @@ func print_text(char_code, text, activate_display=true):
 func start_dialog_step():
 	if is_playing_step: return
 	is_playing_step = true
+	Global.get_player().disable()
 	on_step_ended.emit(false)
 	ui_fade_in()
 	return on_step_ended
@@ -71,9 +72,13 @@ func end_dialog_step():
 	on_step_ended.emit(true)
 	_check_for_close.call_deferred()
 
+func _process(delta: float) -> void:
+	if Input.is_action_pressed("skip_dialog"): end_dialog_step()
+
 func _check_for_close():
 	if !is_playing_step:
 		clear()
+		Global.get_player().enable()
 
 func setup_ui():
 	clear()

@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://3jn8cokxxpxu"]
+
+[ext_resource type="Shader" uid="uid://blj6x2yt1knkn" path="res://post-processing.gdshader" id="1_7buwa"]
+[ext_resource type="Texture2D" uid="uid://5dmmj22fkipd" path="res://resources/lut/LUT_Night_Dark.png" id="2_i6ojl"]
+
+[resource]
+shader = ExtResource("1_7buwa")
+shader_parameter/lut = ExtResource("2_i6ojl")
+shader_parameter/lut_size = 4.0
+shader_parameter/filter_alpha = 1.0

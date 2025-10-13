@@ -761,12 +761,13 @@ animations = [{
 "speed": 24.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "camera", "walking_controller", "ladder_controller")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "camera", "use_region", "walking_controller", "ladder_controller")]
 z_index = 1
 scale = Vector2(0.436, 0.436)
 script = ExtResource("1_0a575")
 sprite = NodePath("AnimatedSprite2D")
 camera = NodePath("Camera2D")
+use_region = NodePath("UseRegion")
 walking_controller = NodePath("PlayerWalkingController")
 ladder_controller = NodePath("PlayerLadderController")
 
@@ -793,8 +794,11 @@ speed_scale = 5.0
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(2.2935781, -105.50459)
 scale = Vector2(2.2935781, 2.2935781)
-zoom = Vector2(1.765, 1.765)
+zoom = Vector2(1.425, 1.425)
 position_smoothing_enabled = true
+
+[node name="AudioListener2D" type="AudioListener2D" parent="Camera2D"]
+current = true
 
 [node name="UseRegion" type="Area2D" parent="."]
 position = Vector2(-1.7498613e-05, -16.055046)
